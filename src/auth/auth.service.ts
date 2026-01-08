@@ -10,7 +10,7 @@ export class AuthService {
     constructor(private readonly prisma: PrismaService, private readonly jwtService: JwtService) { }
 
     async register(data: registerDto) {
-        const { prenom, nom, email, password } = data;
+        const { username, email, password } = data;
 
         const existingEmail = await this.prisma.user.findUnique({ where: { email } });
         if (existingEmail) {
@@ -21,15 +21,13 @@ export class AuthService {
 
         const user = await this.prisma.user.create({
             data: {
-                prenom,
-                nom,
+                username,
                 email,
                 password: hashedPassword,
             },
             select: {
                 id: true,
-                prenom: true,
-                nom: true,
+                username: true,
                 email: true,
                 createdAt: true,
             },
@@ -41,7 +39,7 @@ export class AuthService {
         const token = await this.jwtService.signAsync(payload);
         return {
             status: 201,
-            message: "otilisateur creer avec succes",
+            message: "utilisateur creer avec succes",
             data: {
                 user,
                 token,
@@ -56,8 +54,7 @@ export class AuthService {
             where: { email },
             select: {
                 id: true,
-                prenom: true,
-                nom: true,
+                username: true,
                 email: true,
                 password: true,
                 createdAt: true,
@@ -83,8 +80,7 @@ export class AuthService {
             data: {
                 user: {
                     id: user.id,
-                    prenom: user.prenom,
-                    nom: user.nom,
+                    username: user.username,
                     email: user.email,
                     createdAt: user.createdAt,
                 },
@@ -93,13 +89,12 @@ export class AuthService {
         }
     }
 
-    async validateUser(userId: number) {
+    async validateUser(userId: string) {
         const user = await this.prisma.user.findUnique({
             where: { id: userId },
             select: {
                 id: true,
-                prenom: true,
-                nom: true,
+                username: true,
                 email: true,
                 createdAt: true,
             },
