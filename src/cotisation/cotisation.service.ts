@@ -223,6 +223,7 @@ export class CotisationService {
                 id: true,
                 nom: true,
                 email: true,
+                userId: true,
                 role: true,
             },
         });
