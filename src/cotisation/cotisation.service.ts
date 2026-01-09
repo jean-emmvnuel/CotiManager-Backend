@@ -22,6 +22,7 @@ export class CotisationService {
                     { membres: { some: { userId: userId } } },
                 ],
             },
+            distinct: ['id'], // 🔥 empêche les doublons
             select: {
                 id: true,
                 nom: true,
