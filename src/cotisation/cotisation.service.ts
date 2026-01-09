@@ -21,7 +21,6 @@ export class CotisationService {
                     { proprietaireId: userId },
                     { membres: { some: { userId: userId } } },
                 ],
-                deletedAt: null,
             },
             select: {
                 id: true,
@@ -49,7 +48,6 @@ export class CotisationService {
                     { proprietaireId: userId },
                     { membres: { some: { userId: userId } } },
                 ],
-                deletedAt: null,
             },
             select: {
                 id: true,
@@ -138,13 +136,10 @@ export class CotisationService {
 
     // supprimer une cotisation existante
     async deleteCotisation(cotisationId: string, userId: string) {
-        await this.prisma.cotisation.updateMany({
+        await this.prisma.cotisation.deleteMany({
             where: {
                 id: cotisationId,
                 proprietaireId: userId,
-            },
-            data: {
-                deletedAt: new Date(),
             },
         });
         return {
@@ -222,7 +217,6 @@ export class CotisationService {
         const membres = await this.prisma.membre.findMany({
             where: {
                 cotisationId: cotisationId,
-                deletedAt: null,
             },
             select: {
                 id: true,
@@ -258,12 +252,9 @@ export class CotisationService {
             };
         }
         // Supprimer le membre
-        await this.prisma.membre.update({
+        await this.prisma.membre.delete({
             where: {
                 id: membreId,
-            },
-            data: {
-                deletedAt: new Date(),
             },
         })
         return {
@@ -296,7 +287,6 @@ export class CotisationService {
         const paiements = await this.prisma.payment.findMany({
             where: {
                 cotisationId: cotisationId,
-                deletedAt: null,
             },
         });
         return {
@@ -333,7 +323,6 @@ export class CotisationService {
         const membre = await this.prisma.membre.findFirst({
             where: {
                 cotisationId: cotisationId,
-                deletedAt: null,
                 OR: [
                     { id: data.membreId },
                     { userId: data.membreId },
@@ -364,7 +353,6 @@ export class CotisationService {
                 where: {
                     cotisationId: cotisationId,
                     id: { not: membre.id },
-                    deletedAt: null,
                     user: { isNot: null }
                 },
                 include: { user: true }
@@ -453,7 +441,6 @@ export class CotisationService {
         const cotisation = await this.prisma.cotisation.findUnique({
             where: {
                 inviteCode: inviteCode,
-                deletedAt: null,
             },
             select: {
                 id: true,
@@ -486,7 +473,6 @@ export class CotisationService {
         const existingMembre = await this.prisma.membre.findFirst({
             where: {
                 cotisationId: cotisation.id,
-                deletedAt: null,
                 OR: [
                     { userId: userId },
                     { email: user.email }
@@ -598,12 +584,9 @@ export class CotisationService {
             };
         }
 
-        // Soft delete du paiement
-        await this.prisma.payment.update({
+        // Suppression du paiement
+        await this.prisma.payment.delete({
             where: { id: paiementId },
-            data: {
-                deletedAt: new Date(),
-            },
         });
 
         return {

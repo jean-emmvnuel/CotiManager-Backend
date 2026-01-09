@@ -12,11 +12,11 @@ CotiManager est une application de gestion de cotisations (tontines, épargnes m
 
 ## ✨ Fonctionnalités clés
 
-- **Gestion des Cotisations** : CRUD complet avec Soft Delete.
+- **Gestion des Cotisations** : CRUD complet avec suppression directe (Hard Delete).
 - **Invitation via Lien (Deep Linking)** : Génération de codes d'invitation uniques et de liens profonds redirigeant vers la landing page.
 - **Profil Propriétaire Automatique** : Lors de la création d'une cotisation, le profil de membre "Owner" est automatiquement créé avec les informations réelles du compte utilisateur.
 - **Suivi des Paiements Robuste** : Validation stricte des membres (par ID de membre ou ID utilisateur) et gestion des doublons de paiement pour les périodes.
-- **Synchronisation Offline** : Endpoint `/sync` incrémental basé sur `updatedAt` et `deletedAt`.
+- **Synchronisation Offline** : Endpoint `/sync` incrémental basé sur `updatedAt`.
 - **Accès Multi-Origines** : CORS configuré pour accepter toutes les origines.
 
 ## 🔗 Système d'Adhésion & Deep Linking
@@ -82,15 +82,15 @@ La documentation Swagger est disponible automatiquement à l'adresse suivante un
 #### Membres & Paiements
 - `GET /cotisation/membres/:id` : Voir les membres d'une cotisation.
 - `POST /cotisation/paiements/:id` : Enregistrer un paiement (accepte `membreId` ou `userId`).
-- `DELETE /cotisation/paiements/:paiementId` : Supprimer un paiement (Soft Delete).
+- `DELETE /cotisation/paiements/:paiementId` : Supprimer un paiement.
 
 #### Synchronisation (`/sync`)
-- `GET /sync?since=2026-01-01T10:00:00Z` : Récupère uniquement les données modifiées ou supprimées depuis une date précise.
+- `GET /sync?since=2026-01-01T10:00:00Z` : Récupère uniquement les données modifiées depuis une date précise.
 
 ## 🔄 Architecture de Synchronisation
 
 L'architecture est optimisée pour les applications mobiles/web avec mode déconnecté :
-- **Soft Delete** : Les données ne sont jamais supprimées physiquement mais marquées via `deletedAt`.
+- **Hard Delete** : Les données supprimées sont retirées physiquement de la base de données.
 - **Incrémental** : Le client stocke la date de sa dernière synchro et ne demande que le delta.
 - **Audit** : `updatedAt` automatique sur chaque table pour le suivi des versions.
 

@@ -33,7 +33,6 @@ model Cotisation {
   inviteCode    String?  @unique @map("invite_code") // Code d'invitation unique
   createdAt     DateTime @default(now()) @map("created_at")
   updatedAt     DateTime @updatedAt @map("updated_at")
-  deletedAt     DateTime? @map("deleted_at")
 
   proprietaireId String
   proprietaire   User   @relation("ProprietaireCotisations", fields: [proprietaireId], references: [id])
@@ -48,7 +47,6 @@ model Membre {
   email String? // Optionnel, mais souvent utile pour contacter
   joinedAt  DateTime  @default(now()) @map("joined_at")
   updatedAt DateTime  @default(now()) @updatedAt @map("updated_at")
-  deletedAt DateTime? @map("deleted_at")
 
   // Lien optionnel vers un User (si le membre a un compte)
   userId String?
@@ -75,7 +73,6 @@ model Payment {
   numeroPeriode Int // Période 1, 2, 3...
   paidAt        DateTime  @default(now()) @map("paid_at")
   updatedAt     DateTime  @default(now()) @updatedAt @map("updated_at")
-  deletedAt     DateTime? @map("deleted_at")
 
   membreId     String
   cotisationId String
