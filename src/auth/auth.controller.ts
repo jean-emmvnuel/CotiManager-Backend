@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Request, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, Patch, Request, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { registerDto } from './dto/register.dto';
 import { loginDto } from './dto/login.dto';
@@ -6,7 +6,7 @@ import { JwtAuthGuard } from './jwt.auth.guard';
 
 @Controller('auth')
 export class AuthController {
-    constructor(private readonly authService: AuthService) {}
+    constructor(private readonly authService: AuthService) { }
 
     @Post('/register')
     async register(@Body() data: registerDto) {
@@ -22,5 +22,11 @@ export class AuthController {
     @Get("/me")
     async me(@Request() req) {
         return this.authService.validateUser(req.user.sub);
+    }
+
+    @UseGuards(JwtAuthGuard)
+    @Patch("/push-token")
+    async updatePushToken(@Request() req, @Body('pushToken') pushToken: string) {
+        return this.authService.updatePushToken(req.user.sub, pushToken);
     }
 }

@@ -4,10 +4,14 @@ import { CreateCotisationDto } from './dto/create-cota.dto';
 import { UpdateCotisationDto } from './dto/update-cota.dto';
 import { AddMembreDto } from './dto/add-membre.dto';
 import { AddPaidDto } from './dto/add-paid.dto';
+import { NotificationService } from 'src/notifications/notification.service';
 
 @Injectable()
 export class CotisationService {
-    constructor(private readonly prisma: PrismaService) { }
+    constructor(
+        private readonly prisma: PrismaService,
+        private readonly notificationService: NotificationService
+    ) { }
 
     // lister toutes les cotisations d'un utilisateur (proprietaire et membre)
     async findAll(userId: string) {
@@ -85,14 +89,23 @@ export class CotisationService {
                 totalePeriode: true,
             },
         });
-        const membre = await this.prisma.membre.create({
+
+        // Récupérer les informations de l'utilisateur pour créer le membre propriétaire
+        const user = await this.prisma.user.findUnique({
+            where: { id: userId },
+            select: { username: true, email: true },
+        });
+
+        await this.prisma.membre.create({
             data: {
-                nom: nom,
+                nom: user?.username || "Propriétaire",
+                email: user?.email,
                 role: "OWNER",
                 userId: userId,
                 cotisationId: cotisation.id,
             }
-        })
+        });
+
         return {
             status: true,
             message: 'Cotisation créée avec succès',
@@ -161,19 +174,29 @@ export class CotisationService {
         }
         // Ajouter le membre
         const { nom, email } = data;
-        const membre = await this.prisma.membre.create({
-            data: {
-                nom,
-                email,
-                role: "MEMBER",
-                cotisationId: cotisationId,
-            },
-        });
-        return {
-            status: true,
-            message: 'Membre ajouté avec succès',
-            data: membre,
-        };
+        try {
+            const membre = await this.prisma.membre.create({
+                data: {
+                    nom,
+                    email,
+                    role: "MEMBER",
+                    cotisationId: cotisationId,
+                },
+            });
+            return {
+                status: true,
+                message: 'Membre ajouté avec succès',
+                data: membre,
+            };
+        } catch (error) {
+            if (error.code === 'P2002') {
+                return {
+                    status: false,
+                    message: 'Un membre avec cet email existe déjà dans cette cotisation',
+                };
+            }
+            throw error;
+        }
     }
 
     // recuperer les membres d'une cotisation
@@ -285,35 +308,94 @@ export class CotisationService {
 
     // Ajouter un paiement à une cotisation
     async addPaiement(cotisationId: string, data: AddPaidDto, userId: string) {
-        // Vérifier que l'utilisateur est le propriétaire
+        // Vérifier que l'utilisateur est le propriétaire de la cotisation
         const cotisation = await this.prisma.cotisation.findUnique({
             where: { id: cotisationId },
             select: { proprietaireId: true },
         });
+
         if (!cotisation) {
             return {
                 status: false,
                 message: 'Cotisation non trouvée',
             };
         }
+
         if (cotisation.proprietaireId !== userId) {
             return {
                 status: false,
                 message: 'Seul le propriétaire de la cotisation peut ajouter des paiements',
             };
         }
-        // Ajouter le paiement
-        await this.prisma.payment.create({
-            data: {
+
+        // Vérifier que le membre existe (recherche par ID de membre OU par ID d'utilisateur)
+        // car le mobile peut parfois envoyer l'ID de l'utilisateur ayant rejoint par lien
+        const membre = await this.prisma.membre.findFirst({
+            where: {
                 cotisationId: cotisationId,
-                membreId: data.membreId,
-                montant: data.montant,
-                numeroPeriode: data.numeroPeriode,
+                deletedAt: null,
+                OR: [
+                    { id: data.membreId },
+                    { userId: data.membreId },
+                ],
             },
         });
-        return {
-            status: true,
-            message: 'Paiement ajouté avec succès',
+
+        if (!membre) {
+            return {
+                status: false,
+                message: 'Membre non trouvé ou n\'appartient pas à cette cotisation',
+            };
+        }
+
+        // Ajouter le paiement en utilisant l'ID interne du membre
+        try {
+            const result = await this.prisma.payment.create({
+                data: {
+                    cotisationId: cotisationId,
+                    membreId: membre.id, // On utilise l'ID réel du membre trouvé
+                    montant: data.montant,
+                    numeroPeriode: data.numeroPeriode,
+                },
+            });
+
+            // 1. Récupérer tous les membres sauf celui qui vient de payer
+            const membresToNotify = await this.prisma.membre.findMany({
+                where: {
+                    cotisationId: cotisationId,
+                    id: { not: membre.id },
+                    deletedAt: null,
+                    user: { isNot: null }
+                },
+                include: { user: true }
+            });
+
+            // 2. Extraire leurs tokens de notification
+            const tokens = membresToNotify
+                .map(m => m.user?.pushToken)
+                .filter(t => !!t) as string[];
+
+            // 3. Envoyer la notification groupée
+            if (tokens.length > 0) {
+                await this.notificationService.sendPush(tokens, {
+                    title: "💰 Nouveau paiement !",
+                    body: `${membre.nom} a cotisé ${data.montant} FCFA.`,
+                    data: { cotisationId: cotisationId } // <--- CRITIQUE POUR LE LIEN DIRECT
+                });
+            }
+
+            return {
+                status: true,
+                message: 'Paiement ajouté avec succès',
+            };
+        } catch (error) {
+            if (error.code === 'P2002') {
+                return {
+                    status: false,
+                    message: 'Ce membre a déjà payé pour cette période',
+                };
+            }
+            throw error;
         }
     }
 
@@ -351,10 +433,17 @@ export class CotisationService {
             },
         });
 
+        // Construire le lien profond (Deep Link)
+        // Ce lien redirige vers la landing page si l'app n'est pas installée
+        const inviteLink = `https://cotimanager.netlify.app/join/${inviteCode}`;
+
         return {
             status: true,
             message: 'Code d\'invitation généré avec succès',
-            data: updatedCotisation,
+            data: {
+                ...updatedCotisation,
+                inviteLink,
+            },
         };
     }
 
@@ -370,9 +459,6 @@ export class CotisationService {
                 id: true,
                 nom: true,
                 proprietaireId: true,
-                membres: {
-                    where: { userId: userId, deletedAt: null },
-                },
             },
         });
 
@@ -383,15 +469,7 @@ export class CotisationService {
             };
         }
 
-        // Vérifier si l'utilisateur est déjà membre
-        if (cotisation.membres.length > 0) {
-            return {
-                status: false,
-                message: 'Vous êtes déjà membre de cette cotisation',
-            };
-        }
-
-        // Récupérer les informations de l'utilisateur
+        // Récupérer les informations de l'utilisateur qui veut rejoindre
         const user = await this.prisma.user.findUnique({
             where: { id: userId },
             select: { username: true, email: true },
@@ -404,33 +482,94 @@ export class CotisationService {
             };
         }
 
-        // Ajouter l'utilisateur comme membre
-        const membre = await this.prisma.membre.create({
-            data: {
-                nom: user.username,
-                email: user.email,
-                role: 'MEMBER',
-                userId: userId,
+        // Vérifier si l'utilisateur est déjà membre (soit par son userId, soit par son email)
+        const existingMembre = await this.prisma.membre.findFirst({
+            where: {
                 cotisationId: cotisation.id,
-            },
-            select: {
-                id: true,
-                nom: true,
-                role: true,
-                cotisation: {
+                deletedAt: null,
+                OR: [
+                    { userId: userId },
+                    { email: user.email }
+                ]
+            }
+        });
+
+        if (existingMembre) {
+            // Si le membre est déjà lié à ce compte utilisateur
+            if (existingMembre.userId === userId) {
+                return {
+                    status: false,
+                    message: 'Vous êtes déjà membre de cette cotisation',
+                };
+            }
+
+            // Si le membre existe (ajouté manuellement par email) mais n'est pas encore lié à un compte
+            if (!existingMembre.userId) {
+                const updatedMembre = await this.prisma.membre.update({
+                    where: { id: existingMembre.id },
+                    data: {
+                        userId: userId,
+                        nom: user.username // Mettre à jour le nom avec celui du compte
+                    },
                     select: {
                         id: true,
                         nom: true,
+                        role: true,
+                        cotisation: { select: { id: true, nom: true } },
+                    },
+                });
+
+                return {
+                    status: true,
+                    message: 'Votre compte a été lié à votre profil de membre existant',
+                    data: updatedMembre,
+                };
+            }
+
+            // Si l'email correspond mais appartient déjà à un autre compte (rare avec validation d'email)
+            return {
+                status: false,
+                message: 'Un membre avec cet email existe déjà et est lié à un autre compte',
+            };
+        }
+
+        // Sinon, créer un nouveau membre pour cet utilisateur
+        try {
+            const membre = await this.prisma.membre.create({
+                data: {
+                    nom: user.username,
+                    email: user.email,
+                    role: 'MEMBER',
+                    userId: userId,
+                    cotisationId: cotisation.id,
+                },
+                select: {
+                    id: true,
+                    nom: true,
+                    role: true,
+                    cotisation: {
+                        select: {
+                            id: true,
+                            nom: true,
+                        },
                     },
                 },
-            },
-        });
+            });
 
-        return {
-            status: true,
-            message: 'Vous avez rejoint la cotisation avec succès',
-            data: membre,
-        };
+            return {
+                status: true,
+                message: 'Vous avez rejoint la cotisation avec succès',
+                data: membre,
+            };
+        } catch (error) {
+            if (error.code === 'P2002') {
+                return {
+                    status: false,
+                    message: 'Vous êtes déjà inscrit dans cette cotisation',
+                };
+            }
+            throw error;
+        }
     }
 
     // Supprimer un paiement

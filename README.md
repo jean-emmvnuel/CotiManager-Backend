@@ -13,10 +13,20 @@ CotiManager est une application de gestion de cotisations (tontines, épargnes m
 ## ✨ Fonctionnalités clés
 
 - **Gestion des Cotisations** : CRUD complet avec Soft Delete.
-- **Invitation via Lien** : Génération de codes d'invitation uniques pour rejoindre une cotisation.
-- **Suivi des Paiements** : Enregistrement et suivi par période pour chaque membre.
+- **Invitation via Lien (Deep Linking)** : Génération de codes d'invitation uniques et de liens profonds redirigeant vers la landing page.
+- **Profil Propriétaire Automatique** : Lors de la création d'une cotisation, le profil de membre "Owner" est automatiquement créé avec les informations réelles du compte utilisateur.
+- **Suivi des Paiements Robuste** : Validation stricte des membres (par ID de membre ou ID utilisateur) et gestion des doublons de paiement pour les périodes.
 - **Synchronisation Offline** : Endpoint `/sync` incrémental basé sur `updatedAt` et `deletedAt`.
 - **Accès Multi-Origines** : CORS configuré pour accepter toutes les origines.
+
+## 🔗 Système d'Adhésion & Deep Linking
+
+L'application supporte le **Deep Linking** pour une expérience utilisateur fluide :
+- **Lien formaté** : `https://cotimanager.netlify.app/join/ABCDEFGH`
+- **Comportement** :
+    - Si l'app est installée : Le lien ouvre directement l'application sur la page de confirmation d'adhésion.
+    - Si l'app n'est pas installée : Le lien redirige vers la landing page pour inciter au téléchargement.
+- **Liaison automatique** : Si un propriétaire ajoute un membre manuellement par email, et que ce dernier utilise plus tard le lien d'invitation avec le même email, son compte utilisateur est automatiquement lié au profil de membre existant.
 
 ## 🛠️ Installation et Démarrage
 
@@ -66,20 +76,21 @@ La documentation Swagger est disponible automatiquement à l'adresse suivante un
 #### Cotisations (`/cotisation`)
 - `GET /cotisation` : Liste les cotisations de l'utilisateur (propriétaire ou membre).
 - `POST /cotisation` : Créer une nouvelle cotisation.
-- `POST /cotisation/:id/invite` : Générer un code d'invitation.
-- `POST /cotisation/join/:inviteCode` : Rejoindre une cotisation via un code.
+- `POST /cotisation/:id/invite` : Générer un code d'invitation et un lien profond.
+- `POST /cotisation/join/:inviteCode` : Rejoindre une cotisation via un code/lien.
 
 #### Membres & Paiements
 - `GET /cotisation/membres/:id` : Voir les membres d'une cotisation.
-- `POST /cotisation/paiements/:id` : Enregistrer un paiement.
+- `POST /cotisation/paiements/:id` : Enregistrer un paiement (accepte `membreId` ou `userId`).
 - `DELETE /cotisation/paiements/:paiementId` : Supprimer un paiement (Soft Delete).
 
 #### Synchronisation (`/sync`)
 - `GET /sync?since=2026-01-01T10:00:00Z` : Récupère uniquement les données modifiées ou supprimées depuis une date précise.
 
-## 🔄 Système de Synchronisation
+## 🔄 Architecture de Synchronisation
 
-L'architecture est optimisée pour les applications mobiles/web offline :
+L'architecture est optimisée pour les applications mobiles/web avec mode déconnecté :
 - **Soft Delete** : Les données ne sont jamais supprimées physiquement mais marquées via `deletedAt`.
 - **Incrémental** : Le client stocke la date de sa dernière synchro et ne demande que le delta.
-- **Audit** : `updatedAt` automatique sur chaque table.
+- **Audit** : `updatedAt` automatique sur chaque table pour le suivi des versions.
+

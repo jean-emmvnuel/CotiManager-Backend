@@ -50,7 +50,7 @@ export class AuthService {
     async login(data: loginDto) {
         const { email, password } = data;
 
-        const user = await this.prisma.user.findUnique({ 
+        const user = await this.prisma.user.findUnique({
             where: { email },
             select: {
                 id: true,
@@ -103,5 +103,16 @@ export class AuthService {
             throw new NotFoundException("utilisateur non trouve");
         }
         return user;
+    }
+
+    async updatePushToken(userId: string, pushToken: string) {
+        await this.prisma.user.update({
+            where: { id: userId },
+            data: { pushToken },
+        });
+        return {
+            status: true,
+            message: "Push token mis à jour avec succès",
+        };
     }
 }
