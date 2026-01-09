@@ -24,16 +24,15 @@ model User {
 }
 
 model Cotisation {
-  id            String    @id @default(uuid())
+  id            String   @id @default(uuid())
   nom           String
   montant       Int // Montant par période
   frequenceJour Int // Ex: 30 pour mensuel
-  dateDebut     DateTime  @map("date_debut")
+  dateDebut     DateTime @map("date_debut")
   totalePeriode Int
-  inviteCode    String?   @unique @map("invite_code") // Code d'invitation unique
-  createdAt     DateTime  @default(now()) @map("created_at")
-  updatedAt     DateTime  @updatedAt @map("updated_at")
-  deletedAt     DateTime? @map("deleted_at")
+  inviteCode    String?  @unique @map("invite_code") // Code d'invitation unique
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
 
   proprietaireId String
   proprietaire   User   @relation("ProprietaireCotisations", fields: [proprietaireId], references: [id])
@@ -43,12 +42,11 @@ model Cotisation {
 }
 
 model Membre {
-  id        String    @id @default(uuid())
+  id        String   @id @default(uuid())
   nom       String // Nom du membre (obligatoire)
   email     String? // Optionnel, mais souvent utile pour contacter
-  joinedAt  DateTime  @default(now()) @map("joined_at")
-  updatedAt DateTime  @default(now()) @updatedAt @map("updated_at")
-  deletedAt DateTime? @map("deleted_at")
+  joinedAt  DateTime @default(now()) @map("joined_at")
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
 
   // Lien optionnel vers un User (si le membre a un compte)
   userId String?
@@ -70,12 +68,11 @@ enum Role {
 }
 
 model Payment {
-  id            String    @id @default(uuid())
+  id            String   @id @default(uuid())
   montant       Int
   numeroPeriode Int // Période 1, 2, 3...
-  paidAt        DateTime  @default(now()) @map("paid_at")
-  updatedAt     DateTime  @default(now()) @updatedAt @map("updated_at")
-  deletedAt     DateTime? @map("deleted_at")
+  paidAt        DateTime @default(now()) @map("paid_at")
+  updatedAt     DateTime @default(now()) @updatedAt @map("updated_at")
 
   membreId     String
   cotisationId String

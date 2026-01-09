@@ -140,7 +140,6 @@ exports.Prisma.CotisationScalarFieldEnum = {
   inviteCode: 'inviteCode',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  deletedAt: 'deletedAt',
   proprietaireId: 'proprietaireId'
 };
 
@@ -150,7 +149,6 @@ exports.Prisma.MembreScalarFieldEnum = {
   email: 'email',
   joinedAt: 'joinedAt',
   updatedAt: 'updatedAt',
-  deletedAt: 'deletedAt',
   userId: 'userId',
   cotisationId: 'cotisationId',
   role: 'role'
@@ -162,7 +160,6 @@ exports.Prisma.PaymentScalarFieldEnum = {
   numeroPeriode: 'numeroPeriode',
   paidAt: 'paidAt',
   updatedAt: 'updatedAt',
-  deletedAt: 'deletedAt',
   membreId: 'membreId',
   cotisationId: 'cotisationId'
 };

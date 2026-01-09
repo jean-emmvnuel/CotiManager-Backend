@@ -86,6 +86,7 @@ La documentation Swagger est disponible automatiquement à l'adresse suivante un
 
 #### Synchronisation (`/sync`)
 - `GET /sync?since=2026-01-01T10:00:00Z` : Récupère uniquement les données modifiées depuis une date précise.
+- Voir le [Guide de Synchronisation](./SYNC_GUIDE.md) pour plus de détails sur l'implémentation frontend.
 
 ## 🔄 Architecture de Synchronisation
 

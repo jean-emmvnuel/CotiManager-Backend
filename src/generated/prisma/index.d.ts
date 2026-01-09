@@ -2420,7 +2420,6 @@ export namespace Prisma {
     inviteCode: string | null
     createdAt: Date | null
     updatedAt: Date | null
-    deletedAt: Date | null
     proprietaireId: string | null
   }
 
@@ -2434,7 +2433,6 @@ export namespace Prisma {
     inviteCode: string | null
     createdAt: Date | null
     updatedAt: Date | null
-    deletedAt: Date | null
     proprietaireId: string | null
   }
 
@@ -2448,7 +2446,6 @@ export namespace Prisma {
     inviteCode: number
     createdAt: number
     updatedAt: number
-    deletedAt: number
     proprietaireId: number
     _all: number
   }
@@ -2476,7 +2473,6 @@ export namespace Prisma {
     inviteCode?: true
     createdAt?: true
     updatedAt?: true
-    deletedAt?: true
     proprietaireId?: true
   }
 
@@ -2490,7 +2486,6 @@ export namespace Prisma {
     inviteCode?: true
     createdAt?: true
     updatedAt?: true
-    deletedAt?: true
     proprietaireId?: true
   }
 
@@ -2504,7 +2499,6 @@ export namespace Prisma {
     inviteCode?: true
     createdAt?: true
     updatedAt?: true
-    deletedAt?: true
     proprietaireId?: true
     _all?: true
   }
@@ -2605,7 +2599,6 @@ export namespace Prisma {
     inviteCode: string | null
     createdAt: Date
     updatedAt: Date
-    deletedAt: Date | null
     proprietaireId: string
     _count: CotisationCountAggregateOutputType | null
     _avg: CotisationAvgAggregateOutputType | null
@@ -2638,7 +2631,6 @@ export namespace Prisma {
     inviteCode?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    deletedAt?: boolean
     proprietaireId?: boolean
     proprietaire?: boolean | UserDefaultArgs<ExtArgs>
     membres?: boolean | Cotisation$membresArgs<ExtArgs>
@@ -2656,7 +2648,6 @@ export namespace Prisma {
     inviteCode?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    deletedAt?: boolean
     proprietaireId?: boolean
     proprietaire?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["cotisation"]>
@@ -2671,7 +2662,6 @@ export namespace Prisma {
     inviteCode?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    deletedAt?: boolean
     proprietaireId?: boolean
     proprietaire?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["cotisation"]>
@@ -2686,11 +2676,10 @@ export namespace Prisma {
     inviteCode?: boolean
     createdAt?: boolean
     updatedAt?: boolean
-    deletedAt?: boolean
     proprietaireId?: boolean
   }
 
-  export type CotisationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nom" | "montant" | "frequenceJour" | "dateDebut" | "totalePeriode" | "inviteCode" | "createdAt" | "updatedAt" | "deletedAt" | "proprietaireId", ExtArgs["result"]["cotisation"]>
+  export type CotisationOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nom" | "montant" | "frequenceJour" | "dateDebut" | "totalePeriode" | "inviteCode" | "createdAt" | "updatedAt" | "proprietaireId", ExtArgs["result"]["cotisation"]>
   export type CotisationInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     proprietaire?: boolean | UserDefaultArgs<ExtArgs>
     membres?: boolean | Cotisation$membresArgs<ExtArgs>
@@ -2721,7 +2710,6 @@ export namespace Prisma {
       inviteCode: string | null
       createdAt: Date
       updatedAt: Date
-      deletedAt: Date | null
       proprietaireId: string
     }, ExtArgs["result"]["cotisation"]>
     composites: {}
@@ -3158,7 +3146,6 @@ export namespace Prisma {
     readonly inviteCode: FieldRef<"Cotisation", 'String'>
     readonly createdAt: FieldRef<"Cotisation", 'DateTime'>
     readonly updatedAt: FieldRef<"Cotisation", 'DateTime'>
-    readonly deletedAt: FieldRef<"Cotisation", 'DateTime'>
     readonly proprietaireId: FieldRef<"Cotisation", 'String'>
   }
     
@@ -3638,7 +3625,6 @@ export namespace Prisma {
     email: string | null
     joinedAt: Date | null
     updatedAt: Date | null
-    deletedAt: Date | null
     userId: string | null
     cotisationId: string | null
     role: $Enums.Role | null
@@ -3650,7 +3636,6 @@ export namespace Prisma {
     email: string | null
     joinedAt: Date | null
     updatedAt: Date | null
-    deletedAt: Date | null
     userId: string | null
     cotisationId: string | null
     role: $Enums.Role | null
@@ -3662,7 +3647,6 @@ export namespace Prisma {
     email: number
     joinedAt: number
     updatedAt: number
-    deletedAt: number
     userId: number
     cotisationId: number
     role: number
@@ -3676,7 +3660,6 @@ export namespace Prisma {
     email?: true
     joinedAt?: true
     updatedAt?: true
-    deletedAt?: true
     userId?: true
     cotisationId?: true
     role?: true
@@ -3688,7 +3671,6 @@ export namespace Prisma {
     email?: true
     joinedAt?: true
     updatedAt?: true
-    deletedAt?: true
     userId?: true
     cotisationId?: true
     role?: true
@@ -3700,7 +3682,6 @@ export namespace Prisma {
     email?: true
     joinedAt?: true
     updatedAt?: true
-    deletedAt?: true
     userId?: true
     cotisationId?: true
     role?: true
@@ -3785,7 +3766,6 @@ export namespace Prisma {
     email: string | null
     joinedAt: Date
     updatedAt: Date
-    deletedAt: Date | null
     userId: string | null
     cotisationId: string
     role: $Enums.Role
@@ -3814,7 +3794,6 @@ export namespace Prisma {
     email?: boolean
     joinedAt?: boolean
     updatedAt?: boolean
-    deletedAt?: boolean
     userId?: boolean
     cotisationId?: boolean
     role?: boolean
@@ -3830,7 +3809,6 @@ export namespace Prisma {
     email?: boolean
     joinedAt?: boolean
     updatedAt?: boolean
-    deletedAt?: boolean
     userId?: boolean
     cotisationId?: boolean
     role?: boolean
@@ -3844,7 +3822,6 @@ export namespace Prisma {
     email?: boolean
     joinedAt?: boolean
     updatedAt?: boolean
-    deletedAt?: boolean
     userId?: boolean
     cotisationId?: boolean
     role?: boolean
@@ -3858,13 +3835,12 @@ export namespace Prisma {
     email?: boolean
     joinedAt?: boolean
     updatedAt?: boolean
-    deletedAt?: boolean
     userId?: boolean
     cotisationId?: boolean
     role?: boolean
   }
 
-  export type MembreOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nom" | "email" | "joinedAt" | "updatedAt" | "deletedAt" | "userId" | "cotisationId" | "role", ExtArgs["result"]["membre"]>
+  export type MembreOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nom" | "email" | "joinedAt" | "updatedAt" | "userId" | "cotisationId" | "role", ExtArgs["result"]["membre"]>
   export type MembreInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | Membre$userArgs<ExtArgs>
     cotisation?: boolean | CotisationDefaultArgs<ExtArgs>
@@ -3893,7 +3869,6 @@ export namespace Prisma {
       email: string | null
       joinedAt: Date
       updatedAt: Date
-      deletedAt: Date | null
       userId: string | null
       cotisationId: string
       role: $Enums.Role
@@ -4328,7 +4303,6 @@ export namespace Prisma {
     readonly email: FieldRef<"Membre", 'String'>
     readonly joinedAt: FieldRef<"Membre", 'DateTime'>
     readonly updatedAt: FieldRef<"Membre", 'DateTime'>
-    readonly deletedAt: FieldRef<"Membre", 'DateTime'>
     readonly userId: FieldRef<"Membre", 'String'>
     readonly cotisationId: FieldRef<"Membre", 'String'>
     readonly role: FieldRef<"Membre", 'Role'>
@@ -4817,7 +4791,6 @@ export namespace Prisma {
     numeroPeriode: number | null
     paidAt: Date | null
     updatedAt: Date | null
-    deletedAt: Date | null
     membreId: string | null
     cotisationId: string | null
   }
@@ -4828,7 +4801,6 @@ export namespace Prisma {
     numeroPeriode: number | null
     paidAt: Date | null
     updatedAt: Date | null
-    deletedAt: Date | null
     membreId: string | null
     cotisationId: string | null
   }
@@ -4839,7 +4811,6 @@ export namespace Prisma {
     numeroPeriode: number
     paidAt: number
     updatedAt: number
-    deletedAt: number
     membreId: number
     cotisationId: number
     _all: number
@@ -4862,7 +4833,6 @@ export namespace Prisma {
     numeroPeriode?: true
     paidAt?: true
     updatedAt?: true
-    deletedAt?: true
     membreId?: true
     cotisationId?: true
   }
@@ -4873,7 +4843,6 @@ export namespace Prisma {
     numeroPeriode?: true
     paidAt?: true
     updatedAt?: true
-    deletedAt?: true
     membreId?: true
     cotisationId?: true
   }
@@ -4884,7 +4853,6 @@ export namespace Prisma {
     numeroPeriode?: true
     paidAt?: true
     updatedAt?: true
-    deletedAt?: true
     membreId?: true
     cotisationId?: true
     _all?: true
@@ -4982,7 +4950,6 @@ export namespace Prisma {
     numeroPeriode: number
     paidAt: Date
     updatedAt: Date
-    deletedAt: Date | null
     membreId: string
     cotisationId: string
     _count: PaymentCountAggregateOutputType | null
@@ -5012,7 +4979,6 @@ export namespace Prisma {
     numeroPeriode?: boolean
     paidAt?: boolean
     updatedAt?: boolean
-    deletedAt?: boolean
     membreId?: boolean
     cotisationId?: boolean
     membre?: boolean | MembreDefaultArgs<ExtArgs>
@@ -5025,7 +4991,6 @@ export namespace Prisma {
     numeroPeriode?: boolean
     paidAt?: boolean
     updatedAt?: boolean
-    deletedAt?: boolean
     membreId?: boolean
     cotisationId?: boolean
     membre?: boolean | MembreDefaultArgs<ExtArgs>
@@ -5038,7 +5003,6 @@ export namespace Prisma {
     numeroPeriode?: boolean
     paidAt?: boolean
     updatedAt?: boolean
-    deletedAt?: boolean
     membreId?: boolean
     cotisationId?: boolean
     membre?: boolean | MembreDefaultArgs<ExtArgs>
@@ -5051,12 +5015,11 @@ export namespace Prisma {
     numeroPeriode?: boolean
     paidAt?: boolean
     updatedAt?: boolean
-    deletedAt?: boolean
     membreId?: boolean
     cotisationId?: boolean
   }
 
-  export type PaymentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "montant" | "numeroPeriode" | "paidAt" | "updatedAt" | "deletedAt" | "membreId" | "cotisationId", ExtArgs["result"]["payment"]>
+  export type PaymentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "montant" | "numeroPeriode" | "paidAt" | "updatedAt" | "membreId" | "cotisationId", ExtArgs["result"]["payment"]>
   export type PaymentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     membre?: boolean | MembreDefaultArgs<ExtArgs>
     cotisation?: boolean | CotisationDefaultArgs<ExtArgs>
@@ -5082,7 +5045,6 @@ export namespace Prisma {
       numeroPeriode: number
       paidAt: Date
       updatedAt: Date
-      deletedAt: Date | null
       membreId: string
       cotisationId: string
     }, ExtArgs["result"]["payment"]>
@@ -5515,7 +5477,6 @@ export namespace Prisma {
     readonly numeroPeriode: FieldRef<"Payment", 'Int'>
     readonly paidAt: FieldRef<"Payment", 'DateTime'>
     readonly updatedAt: FieldRef<"Payment", 'DateTime'>
-    readonly deletedAt: FieldRef<"Payment", 'DateTime'>
     readonly membreId: FieldRef<"Payment", 'String'>
     readonly cotisationId: FieldRef<"Payment", 'String'>
   }
@@ -5969,7 +5930,6 @@ export namespace Prisma {
     inviteCode: 'inviteCode',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt',
-    deletedAt: 'deletedAt',
     proprietaireId: 'proprietaireId'
   };
 
@@ -5982,7 +5942,6 @@ export namespace Prisma {
     email: 'email',
     joinedAt: 'joinedAt',
     updatedAt: 'updatedAt',
-    deletedAt: 'deletedAt',
     userId: 'userId',
     cotisationId: 'cotisationId',
     role: 'role'
@@ -5997,7 +5956,6 @@ export namespace Prisma {
     numeroPeriode: 'numeroPeriode',
     paidAt: 'paidAt',
     updatedAt: 'updatedAt',
-    deletedAt: 'deletedAt',
     membreId: 'membreId',
     cotisationId: 'cotisationId'
   };
@@ -6188,7 +6146,6 @@ export namespace Prisma {
     inviteCode?: StringNullableFilter<"Cotisation"> | string | null
     createdAt?: DateTimeFilter<"Cotisation"> | Date | string
     updatedAt?: DateTimeFilter<"Cotisation"> | Date | string
-    deletedAt?: DateTimeNullableFilter<"Cotisation"> | Date | string | null
     proprietaireId?: StringFilter<"Cotisation"> | string
     proprietaire?: XOR<UserScalarRelationFilter, UserWhereInput>
     membres?: MembreListRelationFilter
@@ -6205,7 +6162,6 @@ export namespace Prisma {
     inviteCode?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    deletedAt?: SortOrderInput | SortOrder
     proprietaireId?: SortOrder
     proprietaire?: UserOrderByWithRelationInput
     membres?: MembreOrderByRelationAggregateInput
@@ -6225,7 +6181,6 @@ export namespace Prisma {
     totalePeriode?: IntFilter<"Cotisation"> | number
     createdAt?: DateTimeFilter<"Cotisation"> | Date | string
     updatedAt?: DateTimeFilter<"Cotisation"> | Date | string
-    deletedAt?: DateTimeNullableFilter<"Cotisation"> | Date | string | null
     proprietaireId?: StringFilter<"Cotisation"> | string
     proprietaire?: XOR<UserScalarRelationFilter, UserWhereInput>
     membres?: MembreListRelationFilter
@@ -6242,7 +6197,6 @@ export namespace Prisma {
     inviteCode?: SortOrderInput | SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    deletedAt?: SortOrderInput | SortOrder
     proprietaireId?: SortOrder
     _count?: CotisationCountOrderByAggregateInput
     _avg?: CotisationAvgOrderByAggregateInput
@@ -6264,7 +6218,6 @@ export namespace Prisma {
     inviteCode?: StringNullableWithAggregatesFilter<"Cotisation"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"Cotisation"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Cotisation"> | Date | string
-    deletedAt?: DateTimeNullableWithAggregatesFilter<"Cotisation"> | Date | string | null
     proprietaireId?: StringWithAggregatesFilter<"Cotisation"> | string
   }
 
@@ -6277,7 +6230,6 @@ export namespace Prisma {
     email?: StringNullableFilter<"Membre"> | string | null
     joinedAt?: DateTimeFilter<"Membre"> | Date | string
     updatedAt?: DateTimeFilter<"Membre"> | Date | string
-    deletedAt?: DateTimeNullableFilter<"Membre"> | Date | string | null
     userId?: StringNullableFilter<"Membre"> | string | null
     cotisationId?: StringFilter<"Membre"> | string
     role?: EnumRoleFilter<"Membre"> | $Enums.Role
@@ -6292,7 +6244,6 @@ export namespace Prisma {
     email?: SortOrderInput | SortOrder
     joinedAt?: SortOrder
     updatedAt?: SortOrder
-    deletedAt?: SortOrderInput | SortOrder
     userId?: SortOrderInput | SortOrder
     cotisationId?: SortOrder
     role?: SortOrder
@@ -6311,7 +6262,6 @@ export namespace Prisma {
     email?: StringNullableFilter<"Membre"> | string | null
     joinedAt?: DateTimeFilter<"Membre"> | Date | string
     updatedAt?: DateTimeFilter<"Membre"> | Date | string
-    deletedAt?: DateTimeNullableFilter<"Membre"> | Date | string | null
     userId?: StringNullableFilter<"Membre"> | string | null
     cotisationId?: StringFilter<"Membre"> | string
     role?: EnumRoleFilter<"Membre"> | $Enums.Role
@@ -6326,7 +6276,6 @@ export namespace Prisma {
     email?: SortOrderInput | SortOrder
     joinedAt?: SortOrder
     updatedAt?: SortOrder
-    deletedAt?: SortOrderInput | SortOrder
     userId?: SortOrderInput | SortOrder
     cotisationId?: SortOrder
     role?: SortOrder
@@ -6344,7 +6293,6 @@ export namespace Prisma {
     email?: StringNullableWithAggregatesFilter<"Membre"> | string | null
     joinedAt?: DateTimeWithAggregatesFilter<"Membre"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Membre"> | Date | string
-    deletedAt?: DateTimeNullableWithAggregatesFilter<"Membre"> | Date | string | null
     userId?: StringNullableWithAggregatesFilter<"Membre"> | string | null
     cotisationId?: StringWithAggregatesFilter<"Membre"> | string
     role?: EnumRoleWithAggregatesFilter<"Membre"> | $Enums.Role
@@ -6359,7 +6307,6 @@ export namespace Prisma {
     numeroPeriode?: IntFilter<"Payment"> | number
     paidAt?: DateTimeFilter<"Payment"> | Date | string
     updatedAt?: DateTimeFilter<"Payment"> | Date | string
-    deletedAt?: DateTimeNullableFilter<"Payment"> | Date | string | null
     membreId?: StringFilter<"Payment"> | string
     cotisationId?: StringFilter<"Payment"> | string
     membre?: XOR<MembreScalarRelationFilter, MembreWhereInput>
@@ -6372,7 +6319,6 @@ export namespace Prisma {
     numeroPeriode?: SortOrder
     paidAt?: SortOrder
     updatedAt?: SortOrder
-    deletedAt?: SortOrderInput | SortOrder
     membreId?: SortOrder
     cotisationId?: SortOrder
     membre?: MembreOrderByWithRelationInput
@@ -6389,7 +6335,6 @@ export namespace Prisma {
     numeroPeriode?: IntFilter<"Payment"> | number
     paidAt?: DateTimeFilter<"Payment"> | Date | string
     updatedAt?: DateTimeFilter<"Payment"> | Date | string
-    deletedAt?: DateTimeNullableFilter<"Payment"> | Date | string | null
     membreId?: StringFilter<"Payment"> | string
     cotisationId?: StringFilter<"Payment"> | string
     membre?: XOR<MembreScalarRelationFilter, MembreWhereInput>
@@ -6402,7 +6347,6 @@ export namespace Prisma {
     numeroPeriode?: SortOrder
     paidAt?: SortOrder
     updatedAt?: SortOrder
-    deletedAt?: SortOrderInput | SortOrder
     membreId?: SortOrder
     cotisationId?: SortOrder
     _count?: PaymentCountOrderByAggregateInput
@@ -6421,7 +6365,6 @@ export namespace Prisma {
     numeroPeriode?: IntWithAggregatesFilter<"Payment"> | number
     paidAt?: DateTimeWithAggregatesFilter<"Payment"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Payment"> | Date | string
-    deletedAt?: DateTimeNullableWithAggregatesFilter<"Payment"> | Date | string | null
     membreId?: StringWithAggregatesFilter<"Payment"> | string
     cotisationId?: StringWithAggregatesFilter<"Payment"> | string
   }
@@ -6514,7 +6457,6 @@ export namespace Prisma {
     inviteCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    deletedAt?: Date | string | null
     proprietaire: UserCreateNestedOneWithoutProprietaireCotisationsInput
     membres?: MembreCreateNestedManyWithoutCotisationInput
     payments?: PaymentCreateNestedManyWithoutCotisationInput
@@ -6530,7 +6472,6 @@ export namespace Prisma {
     inviteCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    deletedAt?: Date | string | null
     proprietaireId: string
     membres?: MembreUncheckedCreateNestedManyWithoutCotisationInput
     payments?: PaymentUncheckedCreateNestedManyWithoutCotisationInput
@@ -6546,7 +6487,6 @@ export namespace Prisma {
     inviteCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     proprietaire?: UserUpdateOneRequiredWithoutProprietaireCotisationsNestedInput
     membres?: MembreUpdateManyWithoutCotisationNestedInput
     payments?: PaymentUpdateManyWithoutCotisationNestedInput
@@ -6562,7 +6502,6 @@ export namespace Prisma {
     inviteCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     proprietaireId?: StringFieldUpdateOperationsInput | string
     membres?: MembreUncheckedUpdateManyWithoutCotisationNestedInput
     payments?: PaymentUncheckedUpdateManyWithoutCotisationNestedInput
@@ -6578,7 +6517,6 @@ export namespace Prisma {
     inviteCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    deletedAt?: Date | string | null
     proprietaireId: string
   }
 
@@ -6592,7 +6530,6 @@ export namespace Prisma {
     inviteCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type CotisationUncheckedUpdateManyInput = {
@@ -6605,7 +6542,6 @@ export namespace Prisma {
     inviteCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     proprietaireId?: StringFieldUpdateOperationsInput | string
   }
 
@@ -6615,7 +6551,6 @@ export namespace Prisma {
     email?: string | null
     joinedAt?: Date | string
     updatedAt?: Date | string
-    deletedAt?: Date | string | null
     role?: $Enums.Role
     user?: UserCreateNestedOneWithoutMembresInput
     cotisation: CotisationCreateNestedOneWithoutMembresInput
@@ -6628,7 +6563,6 @@ export namespace Prisma {
     email?: string | null
     joinedAt?: Date | string
     updatedAt?: Date | string
-    deletedAt?: Date | string | null
     userId?: string | null
     cotisationId: string
     role?: $Enums.Role
@@ -6641,7 +6575,6 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     user?: UserUpdateOneWithoutMembresNestedInput
     cotisation?: CotisationUpdateOneRequiredWithoutMembresNestedInput
@@ -6654,7 +6587,6 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     cotisationId?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
@@ -6667,7 +6599,6 @@ export namespace Prisma {
     email?: string | null
     joinedAt?: Date | string
     updatedAt?: Date | string
-    deletedAt?: Date | string | null
     userId?: string | null
     cotisationId: string
     role?: $Enums.Role
@@ -6679,7 +6610,6 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
   }
 
@@ -6689,7 +6619,6 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     cotisationId?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
@@ -6701,7 +6630,6 @@ export namespace Prisma {
     numeroPeriode: number
     paidAt?: Date | string
     updatedAt?: Date | string
-    deletedAt?: Date | string | null
     membre: MembreCreateNestedOneWithoutPaymentsInput
     cotisation: CotisationCreateNestedOneWithoutPaymentsInput
   }
@@ -6712,7 +6640,6 @@ export namespace Prisma {
     numeroPeriode: number
     paidAt?: Date | string
     updatedAt?: Date | string
-    deletedAt?: Date | string | null
     membreId: string
     cotisationId: string
   }
@@ -6723,7 +6650,6 @@ export namespace Prisma {
     numeroPeriode?: IntFieldUpdateOperationsInput | number
     paidAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     membre?: MembreUpdateOneRequiredWithoutPaymentsNestedInput
     cotisation?: CotisationUpdateOneRequiredWithoutPaymentsNestedInput
   }
@@ -6734,7 +6660,6 @@ export namespace Prisma {
     numeroPeriode?: IntFieldUpdateOperationsInput | number
     paidAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     membreId?: StringFieldUpdateOperationsInput | string
     cotisationId?: StringFieldUpdateOperationsInput | string
   }
@@ -6745,7 +6670,6 @@ export namespace Prisma {
     numeroPeriode: number
     paidAt?: Date | string
     updatedAt?: Date | string
-    deletedAt?: Date | string | null
     membreId: string
     cotisationId: string
   }
@@ -6756,7 +6680,6 @@ export namespace Prisma {
     numeroPeriode?: IntFieldUpdateOperationsInput | number
     paidAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type PaymentUncheckedUpdateManyInput = {
@@ -6765,7 +6688,6 @@ export namespace Prisma {
     numeroPeriode?: IntFieldUpdateOperationsInput | number
     paidAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     membreId?: StringFieldUpdateOperationsInput | string
     cotisationId?: StringFieldUpdateOperationsInput | string
   }
@@ -6927,17 +6849,6 @@ export namespace Prisma {
     not?: NestedIntFilter<$PrismaModel> | number
   }
 
-  export type DateTimeNullableFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
-  }
-
   export type UserScalarRelationFilter = {
     is?: UserWhereInput
     isNot?: UserWhereInput
@@ -6963,7 +6874,6 @@ export namespace Prisma {
     inviteCode?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    deletedAt?: SortOrder
     proprietaireId?: SortOrder
   }
 
@@ -6983,7 +6893,6 @@ export namespace Prisma {
     inviteCode?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    deletedAt?: SortOrder
     proprietaireId?: SortOrder
   }
 
@@ -6997,7 +6906,6 @@ export namespace Prisma {
     inviteCode?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
-    deletedAt?: SortOrder
     proprietaireId?: SortOrder
   }
 
@@ -7021,20 +6929,6 @@ export namespace Prisma {
     _sum?: NestedIntFilter<$PrismaModel>
     _min?: NestedIntFilter<$PrismaModel>
     _max?: NestedIntFilter<$PrismaModel>
-  }
-
-  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedDateTimeNullableFilter<$PrismaModel>
-    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type EnumRoleFilter<$PrismaModel = never> = {
@@ -7065,7 +6959,6 @@ export namespace Prisma {
     email?: SortOrder
     joinedAt?: SortOrder
     updatedAt?: SortOrder
-    deletedAt?: SortOrder
     userId?: SortOrder
     cotisationId?: SortOrder
     role?: SortOrder
@@ -7077,7 +6970,6 @@ export namespace Prisma {
     email?: SortOrder
     joinedAt?: SortOrder
     updatedAt?: SortOrder
-    deletedAt?: SortOrder
     userId?: SortOrder
     cotisationId?: SortOrder
     role?: SortOrder
@@ -7089,7 +6981,6 @@ export namespace Prisma {
     email?: SortOrder
     joinedAt?: SortOrder
     updatedAt?: SortOrder
-    deletedAt?: SortOrder
     userId?: SortOrder
     cotisationId?: SortOrder
     role?: SortOrder
@@ -7122,7 +7013,6 @@ export namespace Prisma {
     numeroPeriode?: SortOrder
     paidAt?: SortOrder
     updatedAt?: SortOrder
-    deletedAt?: SortOrder
     membreId?: SortOrder
     cotisationId?: SortOrder
   }
@@ -7138,7 +7028,6 @@ export namespace Prisma {
     numeroPeriode?: SortOrder
     paidAt?: SortOrder
     updatedAt?: SortOrder
-    deletedAt?: SortOrder
     membreId?: SortOrder
     cotisationId?: SortOrder
   }
@@ -7149,7 +7038,6 @@ export namespace Prisma {
     numeroPeriode?: SortOrder
     paidAt?: SortOrder
     updatedAt?: SortOrder
-    deletedAt?: SortOrder
     membreId?: SortOrder
     cotisationId?: SortOrder
   }
@@ -7295,10 +7183,6 @@ export namespace Prisma {
     decrement?: number
     multiply?: number
     divide?: number
-  }
-
-  export type NullableDateTimeFieldUpdateOperationsInput = {
-    set?: Date | string | null
   }
 
   export type UserUpdateOneRequiredWithoutProprietaireCotisationsNestedInput = {
@@ -7578,17 +7462,6 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
-  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
-  }
-
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[] | ListIntFieldRefInput<$PrismaModel>
@@ -7614,20 +7487,6 @@ export namespace Prisma {
     gt?: number | FloatFieldRefInput<$PrismaModel>
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatFilter<$PrismaModel> | number
-  }
-
-  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel> | null
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedDateTimeNullableFilter<$PrismaModel>
-    _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
   export type NestedEnumRoleFilter<$PrismaModel = never> = {
@@ -7657,7 +7516,6 @@ export namespace Prisma {
     inviteCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    deletedAt?: Date | string | null
     membres?: MembreCreateNestedManyWithoutCotisationInput
     payments?: PaymentCreateNestedManyWithoutCotisationInput
   }
@@ -7672,7 +7530,6 @@ export namespace Prisma {
     inviteCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    deletedAt?: Date | string | null
     membres?: MembreUncheckedCreateNestedManyWithoutCotisationInput
     payments?: PaymentUncheckedCreateNestedManyWithoutCotisationInput
   }
@@ -7693,7 +7550,6 @@ export namespace Prisma {
     email?: string | null
     joinedAt?: Date | string
     updatedAt?: Date | string
-    deletedAt?: Date | string | null
     role?: $Enums.Role
     cotisation: CotisationCreateNestedOneWithoutMembresInput
     payments?: PaymentCreateNestedManyWithoutMembreInput
@@ -7705,7 +7561,6 @@ export namespace Prisma {
     email?: string | null
     joinedAt?: Date | string
     updatedAt?: Date | string
-    deletedAt?: Date | string | null
     cotisationId: string
     role?: $Enums.Role
     payments?: PaymentUncheckedCreateNestedManyWithoutMembreInput
@@ -7750,7 +7605,6 @@ export namespace Prisma {
     inviteCode?: StringNullableFilter<"Cotisation"> | string | null
     createdAt?: DateTimeFilter<"Cotisation"> | Date | string
     updatedAt?: DateTimeFilter<"Cotisation"> | Date | string
-    deletedAt?: DateTimeNullableFilter<"Cotisation"> | Date | string | null
     proprietaireId?: StringFilter<"Cotisation"> | string
   }
 
@@ -7779,7 +7633,6 @@ export namespace Prisma {
     email?: StringNullableFilter<"Membre"> | string | null
     joinedAt?: DateTimeFilter<"Membre"> | Date | string
     updatedAt?: DateTimeFilter<"Membre"> | Date | string
-    deletedAt?: DateTimeNullableFilter<"Membre"> | Date | string | null
     userId?: StringNullableFilter<"Membre"> | string | null
     cotisationId?: StringFilter<"Membre"> | string
     role?: EnumRoleFilter<"Membre"> | $Enums.Role
@@ -7818,7 +7671,6 @@ export namespace Prisma {
     email?: string | null
     joinedAt?: Date | string
     updatedAt?: Date | string
-    deletedAt?: Date | string | null
     role?: $Enums.Role
     user?: UserCreateNestedOneWithoutMembresInput
     payments?: PaymentCreateNestedManyWithoutMembreInput
@@ -7830,7 +7682,6 @@ export namespace Prisma {
     email?: string | null
     joinedAt?: Date | string
     updatedAt?: Date | string
-    deletedAt?: Date | string | null
     userId?: string | null
     role?: $Enums.Role
     payments?: PaymentUncheckedCreateNestedManyWithoutMembreInput
@@ -7852,7 +7703,6 @@ export namespace Prisma {
     numeroPeriode: number
     paidAt?: Date | string
     updatedAt?: Date | string
-    deletedAt?: Date | string | null
     membre: MembreCreateNestedOneWithoutPaymentsInput
   }
 
@@ -7862,7 +7712,6 @@ export namespace Prisma {
     numeroPeriode: number
     paidAt?: Date | string
     updatedAt?: Date | string
-    deletedAt?: Date | string | null
     membreId: string
   }
 
@@ -7950,7 +7799,6 @@ export namespace Prisma {
     numeroPeriode?: IntFilter<"Payment"> | number
     paidAt?: DateTimeFilter<"Payment"> | Date | string
     updatedAt?: DateTimeFilter<"Payment"> | Date | string
-    deletedAt?: DateTimeNullableFilter<"Payment"> | Date | string | null
     membreId?: StringFilter<"Payment"> | string
     cotisationId?: StringFilter<"Payment"> | string
   }
@@ -7992,7 +7840,6 @@ export namespace Prisma {
     inviteCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    deletedAt?: Date | string | null
     proprietaire: UserCreateNestedOneWithoutProprietaireCotisationsInput
     payments?: PaymentCreateNestedManyWithoutCotisationInput
   }
@@ -8007,7 +7854,6 @@ export namespace Prisma {
     inviteCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    deletedAt?: Date | string | null
     proprietaireId: string
     payments?: PaymentUncheckedCreateNestedManyWithoutCotisationInput
   }
@@ -8023,7 +7869,6 @@ export namespace Prisma {
     numeroPeriode: number
     paidAt?: Date | string
     updatedAt?: Date | string
-    deletedAt?: Date | string | null
     cotisation: CotisationCreateNestedOneWithoutPaymentsInput
   }
 
@@ -8033,7 +7878,6 @@ export namespace Prisma {
     numeroPeriode: number
     paidAt?: Date | string
     updatedAt?: Date | string
-    deletedAt?: Date | string | null
     cotisationId: string
   }
 
@@ -8101,7 +7945,6 @@ export namespace Prisma {
     inviteCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     proprietaire?: UserUpdateOneRequiredWithoutProprietaireCotisationsNestedInput
     payments?: PaymentUpdateManyWithoutCotisationNestedInput
   }
@@ -8116,7 +7959,6 @@ export namespace Prisma {
     inviteCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     proprietaireId?: StringFieldUpdateOperationsInput | string
     payments?: PaymentUncheckedUpdateManyWithoutCotisationNestedInput
   }
@@ -8143,7 +7985,6 @@ export namespace Prisma {
     email?: string | null
     joinedAt?: Date | string
     updatedAt?: Date | string
-    deletedAt?: Date | string | null
     role?: $Enums.Role
     user?: UserCreateNestedOneWithoutMembresInput
     cotisation: CotisationCreateNestedOneWithoutMembresInput
@@ -8155,7 +7996,6 @@ export namespace Prisma {
     email?: string | null
     joinedAt?: Date | string
     updatedAt?: Date | string
-    deletedAt?: Date | string | null
     userId?: string | null
     cotisationId: string
     role?: $Enums.Role
@@ -8176,7 +8016,6 @@ export namespace Prisma {
     inviteCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    deletedAt?: Date | string | null
     proprietaire: UserCreateNestedOneWithoutProprietaireCotisationsInput
     membres?: MembreCreateNestedManyWithoutCotisationInput
   }
@@ -8191,7 +8030,6 @@ export namespace Prisma {
     inviteCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    deletedAt?: Date | string | null
     proprietaireId: string
     membres?: MembreUncheckedCreateNestedManyWithoutCotisationInput
   }
@@ -8218,7 +8056,6 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     user?: UserUpdateOneWithoutMembresNestedInput
     cotisation?: CotisationUpdateOneRequiredWithoutMembresNestedInput
@@ -8230,7 +8067,6 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     cotisationId?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
@@ -8257,7 +8093,6 @@ export namespace Prisma {
     inviteCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     proprietaire?: UserUpdateOneRequiredWithoutProprietaireCotisationsNestedInput
     membres?: MembreUpdateManyWithoutCotisationNestedInput
   }
@@ -8272,7 +8107,6 @@ export namespace Prisma {
     inviteCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     proprietaireId?: StringFieldUpdateOperationsInput | string
     membres?: MembreUncheckedUpdateManyWithoutCotisationNestedInput
   }
@@ -8287,7 +8121,6 @@ export namespace Prisma {
     inviteCode?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    deletedAt?: Date | string | null
   }
 
   export type MembreCreateManyUserInput = {
@@ -8296,7 +8129,6 @@ export namespace Prisma {
     email?: string | null
     joinedAt?: Date | string
     updatedAt?: Date | string
-    deletedAt?: Date | string | null
     cotisationId: string
     role?: $Enums.Role
   }
@@ -8311,7 +8143,6 @@ export namespace Prisma {
     inviteCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     membres?: MembreUpdateManyWithoutCotisationNestedInput
     payments?: PaymentUpdateManyWithoutCotisationNestedInput
   }
@@ -8326,7 +8157,6 @@ export namespace Prisma {
     inviteCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     membres?: MembreUncheckedUpdateManyWithoutCotisationNestedInput
     payments?: PaymentUncheckedUpdateManyWithoutCotisationNestedInput
   }
@@ -8341,7 +8171,6 @@ export namespace Prisma {
     inviteCode?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type MembreUpdateWithoutUserInput = {
@@ -8350,7 +8179,6 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     cotisation?: CotisationUpdateOneRequiredWithoutMembresNestedInput
     payments?: PaymentUpdateManyWithoutMembreNestedInput
@@ -8362,7 +8190,6 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     cotisationId?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     payments?: PaymentUncheckedUpdateManyWithoutMembreNestedInput
@@ -8374,7 +8201,6 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     cotisationId?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
   }
@@ -8385,7 +8211,6 @@ export namespace Prisma {
     email?: string | null
     joinedAt?: Date | string
     updatedAt?: Date | string
-    deletedAt?: Date | string | null
     userId?: string | null
     role?: $Enums.Role
   }
@@ -8396,7 +8221,6 @@ export namespace Prisma {
     numeroPeriode: number
     paidAt?: Date | string
     updatedAt?: Date | string
-    deletedAt?: Date | string | null
     membreId: string
   }
 
@@ -8406,7 +8230,6 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     user?: UserUpdateOneWithoutMembresNestedInput
     payments?: PaymentUpdateManyWithoutMembreNestedInput
@@ -8418,7 +8241,6 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
     payments?: PaymentUncheckedUpdateManyWithoutMembreNestedInput
@@ -8430,7 +8252,6 @@ export namespace Prisma {
     email?: NullableStringFieldUpdateOperationsInput | string | null
     joinedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     userId?: NullableStringFieldUpdateOperationsInput | string | null
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
   }
@@ -8441,7 +8262,6 @@ export namespace Prisma {
     numeroPeriode?: IntFieldUpdateOperationsInput | number
     paidAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     membre?: MembreUpdateOneRequiredWithoutPaymentsNestedInput
   }
 
@@ -8451,7 +8271,6 @@ export namespace Prisma {
     numeroPeriode?: IntFieldUpdateOperationsInput | number
     paidAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     membreId?: StringFieldUpdateOperationsInput | string
   }
 
@@ -8461,7 +8280,6 @@ export namespace Prisma {
     numeroPeriode?: IntFieldUpdateOperationsInput | number
     paidAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     membreId?: StringFieldUpdateOperationsInput | string
   }
 
@@ -8471,7 +8289,6 @@ export namespace Prisma {
     numeroPeriode: number
     paidAt?: Date | string
     updatedAt?: Date | string
-    deletedAt?: Date | string | null
     cotisationId: string
   }
 
@@ -8481,7 +8298,6 @@ export namespace Prisma {
     numeroPeriode?: IntFieldUpdateOperationsInput | number
     paidAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     cotisation?: CotisationUpdateOneRequiredWithoutPaymentsNestedInput
   }
 
@@ -8491,7 +8307,6 @@ export namespace Prisma {
     numeroPeriode?: IntFieldUpdateOperationsInput | number
     paidAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     cotisationId?: StringFieldUpdateOperationsInput | string
   }
 
@@ -8501,7 +8316,6 @@ export namespace Prisma {
     numeroPeriode?: IntFieldUpdateOperationsInput | number
     paidAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    deletedAt?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     cotisationId?: StringFieldUpdateOperationsInput | string
   }
 
