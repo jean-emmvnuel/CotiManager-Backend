@@ -98,7 +98,45 @@ exports.Prisma.UserScalarFieldEnum = {
   username: 'username',
   email: 'email',
   password: 'password',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.CotisationScalarFieldEnum = {
+  id: 'id',
+  nom: 'nom',
+  montant: 'montant',
+  frequenceJour: 'frequenceJour',
+  dateDebut: 'dateDebut',
+  totalePeriode: 'totalePeriode',
+  inviteCode: 'inviteCode',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt',
+  proprietaireId: 'proprietaireId'
+};
+
+exports.Prisma.MembreScalarFieldEnum = {
+  id: 'id',
+  nom: 'nom',
+  email: 'email',
+  joinedAt: 'joinedAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt',
+  userId: 'userId',
+  cotisationId: 'cotisationId',
+  role: 'role'
+};
+
+exports.Prisma.PaymentScalarFieldEnum = {
+  id: 'id',
+  montant: 'montant',
+  numeroPeriode: 'numeroPeriode',
+  paidAt: 'paidAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt',
+  membreId: 'membreId',
+  cotisationId: 'cotisationId'
 };
 
 exports.Prisma.SortOrder = {
@@ -111,9 +149,20 @@ exports.Prisma.QueryMode = {
   insensitive: 'insensitive'
 };
 
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
+};
+exports.Role = exports.$Enums.Role = {
+  OWNER: 'OWNER',
+  MEMBER: 'MEMBER'
+};
 
 exports.Prisma.ModelName = {
-  User: 'User'
+  User: 'User',
+  Cotisation: 'Cotisation',
+  Membre: 'Membre',
+  Payment: 'Payment'
 };
 /**
  * Create the Client
@@ -123,10 +172,10 @@ const config = {
   "clientVersion": "7.2.0",
   "engineVersion": "0c8ef2ce45c83248ab3df073180d5eda9e8be7a3",
   "activeProvider": "postgresql",
-  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"../src/generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n}\n\nmodel User {\n  id        String   @id @default(uuid())\n  username  String\n  email     String   @unique\n  password  String\n  createdAt DateTime @default(now()) @map(\"created_at\")\n}\n"
+  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"../src/generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n}\n\nmodel User {\n  id        String   @id @default(uuid())\n  username  String\n  email     String   @unique\n  password  String\n  createdAt DateTime @default(now()) @map(\"created_at\")\n  updatedAt DateTime @default(now()) @updatedAt @map(\"updated_at\")\n\n  // Un utilisateur peut être propriétaire de cotisations\n  proprietaireCotisations Cotisation[] @relation(\"ProprietaireCotisations\")\n\n  // Un utilisateur peut être membre (via la table Membre)\n  membres Membre[]\n}\n\nmodel Cotisation {\n  id            String    @id @default(uuid())\n  nom           String\n  montant       Int // Montant par période\n  frequenceJour Int // Ex: 30 pour mensuel\n  dateDebut     DateTime  @map(\"date_debut\")\n  totalePeriode Int\n  inviteCode    String?   @unique @map(\"invite_code\") // Code d'invitation unique\n  createdAt     DateTime  @default(now()) @map(\"created_at\")\n  updatedAt     DateTime  @updatedAt @map(\"updated_at\")\n  deletedAt     DateTime? @map(\"deleted_at\")\n\n  proprietaireId String\n  proprietaire   User   @relation(\"ProprietaireCotisations\", fields: [proprietaireId], references: [id])\n\n  membres  Membre[]\n  payments Payment[]\n}\n\nmodel Membre {\n  id        String    @id @default(uuid())\n  nom       String // Nom du membre (obligatoire)\n  email     String? // Optionnel, mais souvent utile pour contacter\n  joinedAt  DateTime  @default(now()) @map(\"joined_at\")\n  updatedAt DateTime  @default(now()) @updatedAt @map(\"updated_at\")\n  deletedAt DateTime? @map(\"deleted_at\")\n\n  // Lien optionnel vers un User (si le membre a un compte)\n  userId String?\n  user   User?   @relation(fields: [userId], references: [id])\n\n  cotisationId String\n  cotisation   Cotisation @relation(fields: [cotisationId], references: [id], onDelete: Cascade)\n\n  role Role @default(MEMBER)\n\n  payments Payment[]\n\n  @@unique([cotisationId, email]) // Optionnel : évite doublons si téléphone fourni\n}\n\nenum Role {\n  OWNER\n  MEMBER\n}\n\nmodel Payment {\n  id            String    @id @default(uuid())\n  montant       Int\n  numeroPeriode Int // Période 1, 2, 3...\n  paidAt        DateTime  @default(now()) @map(\"paid_at\")\n  updatedAt     DateTime  @default(now()) @updatedAt @map(\"updated_at\")\n  deletedAt     DateTime? @map(\"deleted_at\")\n\n  membreId     String\n  cotisationId String\n\n  membre     Membre     @relation(fields: [membreId], references: [id], onDelete: Cascade)\n  cotisation Cotisation @relation(fields: [cotisationId], references: [id], onDelete: Cascade)\n\n  // Une période ne peut être payée qu'une seule fois par membre\n  @@unique([cotisationId, membreId, numeroPeriode])\n}\n"
 }
 
-config.runtimeDataModel = JSON.parse("{\"models\":{\"User\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"username\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"password\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\",\"dbName\":\"created_at\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
+config.runtimeDataModel = JSON.parse("{\"models\":{\"User\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"username\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"password\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\",\"dbName\":\"created_at\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\",\"dbName\":\"updated_at\"},{\"name\":\"proprietaireCotisations\",\"kind\":\"object\",\"type\":\"Cotisation\",\"relationName\":\"ProprietaireCotisations\"},{\"name\":\"membres\",\"kind\":\"object\",\"type\":\"Membre\",\"relationName\":\"MembreToUser\"}],\"dbName\":null},\"Cotisation\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"nom\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"montant\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"frequenceJour\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"dateDebut\",\"kind\":\"scalar\",\"type\":\"DateTime\",\"dbName\":\"date_debut\"},{\"name\":\"totalePeriode\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"inviteCode\",\"kind\":\"scalar\",\"type\":\"String\",\"dbName\":\"invite_code\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\",\"dbName\":\"created_at\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\",\"dbName\":\"updated_at\"},{\"name\":\"deletedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\",\"dbName\":\"deleted_at\"},{\"name\":\"proprietaireId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"proprietaire\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"ProprietaireCotisations\"},{\"name\":\"membres\",\"kind\":\"object\",\"type\":\"Membre\",\"relationName\":\"CotisationToMembre\"},{\"name\":\"payments\",\"kind\":\"object\",\"type\":\"Payment\",\"relationName\":\"CotisationToPayment\"}],\"dbName\":null},\"Membre\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"nom\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"joinedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\",\"dbName\":\"joined_at\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\",\"dbName\":\"updated_at\"},{\"name\":\"deletedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\",\"dbName\":\"deleted_at\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"MembreToUser\"},{\"name\":\"cotisationId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"cotisation\",\"kind\":\"object\",\"type\":\"Cotisation\",\"relationName\":\"CotisationToMembre\"},{\"name\":\"role\",\"kind\":\"enum\",\"type\":\"Role\"},{\"name\":\"payments\",\"kind\":\"object\",\"type\":\"Payment\",\"relationName\":\"MembreToPayment\"}],\"dbName\":null},\"Payment\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"montant\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"numeroPeriode\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"paidAt\",\"kind\":\"scalar\",\"type\":\"DateTime\",\"dbName\":\"paid_at\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\",\"dbName\":\"updated_at\"},{\"name\":\"deletedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\",\"dbName\":\"deleted_at\"},{\"name\":\"membreId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"cotisationId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"membre\",\"kind\":\"object\",\"type\":\"Membre\",\"relationName\":\"MembreToPayment\"},{\"name\":\"cotisation\",\"kind\":\"object\",\"type\":\"Cotisation\",\"relationName\":\"CotisationToPayment\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
 defineDmmfProperty(exports.Prisma, config.runtimeDataModel)
 config.compilerWasm = {
       getRuntime: async () => require('./query_compiler_bg.js'),

@@ -13,4 +13,75 @@ model User {
   email     String   @unique
   password  String
   createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
+
+  // Un utilisateur peut être propriétaire de cotisations
+  proprietaireCotisations Cotisation[] @relation("ProprietaireCotisations")
+
+  // Un utilisateur peut être membre (via la table Membre)
+  membres Membre[]
+}
+
+model Cotisation {
+  id            String    @id @default(uuid())
+  nom           String
+  montant       Int // Montant par période
+  frequenceJour Int // Ex: 30 pour mensuel
+  dateDebut     DateTime  @map("date_debut")
+  totalePeriode Int
+  inviteCode    String?   @unique @map("invite_code") // Code d'invitation unique
+  createdAt     DateTime  @default(now()) @map("created_at")
+  updatedAt     DateTime  @updatedAt @map("updated_at")
+  deletedAt     DateTime? @map("deleted_at")
+
+  proprietaireId String
+  proprietaire   User   @relation("ProprietaireCotisations", fields: [proprietaireId], references: [id])
+
+  membres  Membre[]
+  payments Payment[]
+}
+
+model Membre {
+  id        String    @id @default(uuid())
+  nom       String // Nom du membre (obligatoire)
+  email     String? // Optionnel, mais souvent utile pour contacter
+  joinedAt  DateTime  @default(now()) @map("joined_at")
+  updatedAt DateTime  @default(now()) @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+
+  // Lien optionnel vers un User (si le membre a un compte)
+  userId String?
+  user   User?   @relation(fields: [userId], references: [id])
+
+  cotisationId String
+  cotisation   Cotisation @relation(fields: [cotisationId], references: [id], onDelete: Cascade)
+
+  role Role @default(MEMBER)
+
+  payments Payment[]
+
+  @@unique([cotisationId, email]) // Optionnel : évite doublons si téléphone fourni
+}
+
+enum Role {
+  OWNER
+  MEMBER
+}
+
+model Payment {
+  id            String    @id @default(uuid())
+  montant       Int
+  numeroPeriode Int // Période 1, 2, 3...
+  paidAt        DateTime  @default(now()) @map("paid_at")
+  updatedAt     DateTime  @default(now()) @updatedAt @map("updated_at")
+  deletedAt     DateTime? @map("deleted_at")
+
+  membreId     String
+  cotisationId String
+
+  membre     Membre     @relation(fields: [membreId], references: [id], onDelete: Cascade)
+  cotisation Cotisation @relation(fields: [cotisationId], references: [id], onDelete: Cascade)
+
+  // Une période ne peut être payée qu'une seule fois par membre
+  @@unique([cotisationId, membreId, numeroPeriode])
 }

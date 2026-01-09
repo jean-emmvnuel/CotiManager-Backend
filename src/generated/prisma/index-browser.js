@@ -125,7 +125,45 @@ exports.Prisma.UserScalarFieldEnum = {
   username: 'username',
   email: 'email',
   password: 'password',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.CotisationScalarFieldEnum = {
+  id: 'id',
+  nom: 'nom',
+  montant: 'montant',
+  frequenceJour: 'frequenceJour',
+  dateDebut: 'dateDebut',
+  totalePeriode: 'totalePeriode',
+  inviteCode: 'inviteCode',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt',
+  proprietaireId: 'proprietaireId'
+};
+
+exports.Prisma.MembreScalarFieldEnum = {
+  id: 'id',
+  nom: 'nom',
+  email: 'email',
+  joinedAt: 'joinedAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt',
+  userId: 'userId',
+  cotisationId: 'cotisationId',
+  role: 'role'
+};
+
+exports.Prisma.PaymentScalarFieldEnum = {
+  id: 'id',
+  montant: 'montant',
+  numeroPeriode: 'numeroPeriode',
+  paidAt: 'paidAt',
+  updatedAt: 'updatedAt',
+  deletedAt: 'deletedAt',
+  membreId: 'membreId',
+  cotisationId: 'cotisationId'
 };
 
 exports.Prisma.SortOrder = {
@@ -138,9 +176,20 @@ exports.Prisma.QueryMode = {
   insensitive: 'insensitive'
 };
 
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
+};
+exports.Role = exports.$Enums.Role = {
+  OWNER: 'OWNER',
+  MEMBER: 'MEMBER'
+};
 
 exports.Prisma.ModelName = {
-  User: 'User'
+  User: 'User',
+  Cotisation: 'Cotisation',
+  Membre: 'Membre',
+  Payment: 'Payment'
 };
 
 /**
